@@ -67,11 +67,21 @@ while 1:
 
         snakeParts.append((x, y, snakeSize, snakeSize))
 
-        # Check for Collision with wall
         currentX = snakeParts[len(snakeParts) - 1][0]
         currentY = snakeParts[len(snakeParts) - 1][1]
+
+        # Check for Collision with wall
+
         if currentY < headerHeight or currentY >= height - snakeSize or currentX < 0 or currentX > width:
-            print("You're dead!")
+            print("You're dead from wall!")
+
+        # Check for collision with yourself
+        snakePartsExcludingLast = snakeParts.copy()
+        snakePartsExcludingLast.pop()
+        
+        for snakePart in snakePartsExcludingLast:
+            if snakePart[0] == currentX and snakePart[1] == currentY:
+                print ("You are dead from yourself!")
 
         for apple in apples:
             if apple[0] == snakeParts[len(snakeParts) - 1][0] and apple[1] == snakeParts[len(snakeParts) - 1][1]:
