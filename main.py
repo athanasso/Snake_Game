@@ -7,7 +7,7 @@ font = pygame.font.SysFont(None, 24)
 
 headerHeight = 30
 snakeSize = 15
-size = width, height = 640, 480
+size = width, height = 700, 450
 black = 0, 0, 0
 white = 255, 255, 255
 red = 255, 0, 0
@@ -66,6 +66,13 @@ while 1:
             y += snakeSize
 
         snakeParts.append((x, y, snakeSize, snakeSize))
+
+        # Check for Collision with wall
+        currentX = snakeParts[len(snakeParts) - 1][0]
+        currentY = snakeParts[len(snakeParts) - 1][1]
+        if currentY < headerHeight or currentY >= height - snakeSize or currentX < 0 or currentX > width:
+            print("You're dead!")
+
         for apple in apples:
             if apple[0] == snakeParts[len(snakeParts) - 1][0] and apple[1] == snakeParts[len(snakeParts) - 1][1]:
                 apples.remove(apple)
@@ -82,7 +89,7 @@ while 1:
         
     screen.fill(black)
 
-    pygame.draw.rect(screen, blue, (0, 0, 640, headerHeight))
+    pygame.draw.rect(screen, blue, (0, 0, width, headerHeight))
 
     img = font.render('score: ' + str(score), True, white)
     screen.blit(img, (10, 8))
