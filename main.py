@@ -36,6 +36,19 @@ appleThreshold = 3
 
 score = 0
 
+bestScore = 0
+
+def resetGame():
+    global snakeParts, apples, x, y, score, maxLength, lastTicks, totalDelta, direction, bestScore
+    snakeParts = []
+    apples = []
+    score = 0
+    x, y = 150, 150
+    maxLength = 5
+    lastTicks = 0
+    totalDelta = 0
+    direction = 'right'
+
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.ext()
@@ -73,21 +86,26 @@ while 1:
         # Check for Collision with wall
 
         if currentY < headerHeight or currentY >= height - snakeSize or currentX < 0 or currentX > width:
+            resetGame()
             print("You're dead from wall!")
 
         # Check for collision with yourself
-        snakePartsExcludingLast = snakeParts.copy()
-        snakePartsExcludingLast.pop()
-        
-        for snakePart in snakePartsExcludingLast:
-            if snakePart[0] == currentX and snakePart[1] == currentY:
-                print ("You are dead from yourself!")
+
+        if len(snakeParts) > 0:
+            snakePartsExcludingLast = snakeParts.copy()
+            snakePartsExcludingLast.pop()
+            for snakePart in snakePartsExcludingLast:
+                if snakePart[0] == currentX and snakePart[1] == currentY:
+                    resetGame()
+                    print ("You are dead from yourself!")
 
         for apple in apples:
             if apple[0] == snakeParts[len(snakeParts) - 1][0] and apple[1] == snakeParts[len(snakeParts) - 1][1]:
                 apples.remove(apple)
                 score += 1
                 maxLength +=1
+                if score > bestScore:
+                    bestScore = score
 
         if len(snakeParts) > maxLength:
             snakeParts.pop(0)
@@ -101,8 +119,11 @@ while 1:
 
     pygame.draw.rect(screen, blue, (0, 0, width, headerHeight))
 
-    img = font.render('score: ' + str(score), True, white)
-    screen.blit(img, (10, 8))
+    scoreImage = font.render('score: ' + str(score), True, white)
+    bestScoreImage = font.render('best score: ' + str(bestScore), True, white)
+
+    screen.blit(scoreImage, (10, 8))
+    screen.blit(bestScoreImage, (100, 8))
 
     for snakePart in snakeParts:
         pygame.draw.rect(screen, green, snakePart)
