@@ -109,7 +109,7 @@ while 1:
 
         # Check for Collision with wall
 
-        if currentY < headerHeight or currentY >= height - snakeSize or currentX < 0 or currentX > width:
+        if currentY < headerHeight or currentY >= height or currentX < 0 or currentX > width:
             resetGame()
             crashSoundEffect.play()
             print("You're dead from wall!")
