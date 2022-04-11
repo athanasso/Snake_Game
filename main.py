@@ -63,6 +63,16 @@ def resetGame():
     f.write(str(bestScore))
     f.close()
 
+backgroundMusic = pygame.mixer.Sound('Sounds/pokemon_route.mp3')
+backgroundMusic.set_volume(0.2)
+backgroundMusic.play(-1)
+
+eatSoundEffect = pygame.mixer.Sound('Sounds/eat.wav')
+eatSoundEffect.set_volume(4)
+
+crashSoundEffect = pygame.mixer.Sound('Sounds/crash.wav')
+crashSoundEffect.set_volume(4)
+
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.ext()
@@ -101,6 +111,7 @@ while 1:
 
         if currentY < headerHeight or currentY >= height - snakeSize or currentX < 0 or currentX > width:
             resetGame()
+            crashSoundEffect.play()
             print("You're dead from wall!")
 
         # Check for collision with yourself
@@ -111,6 +122,7 @@ while 1:
             for snakePart in snakePartsExcludingLast:
                 if snakePart[0] == currentX and snakePart[1] == currentY:
                     resetGame()
+                    crashSoundEffect.play()
                     print ("You are dead from yourself!")
 
         for apple in apples:
@@ -119,6 +131,7 @@ while 1:
                 if speed > maxSpeed:
                     speed -= speedIncrement
                 score += 1
+                eatSoundEffect.play()
                 maxLength +=1
                 if score > bestScore:
                     bestScore = score
