@@ -28,6 +28,8 @@ maxLength = 5
 totalAppleDelta = 0
 appleThreshold = 3
 
+score = 0
+
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.ext()
@@ -58,6 +60,12 @@ while 1:
             y += 10
 
         snakeParts.append((x, y, 10, 10))
+        for apple in apples:
+            if apple[0] == snakeParts[len(snakeParts) - 1][0] and apple[1] == snakeParts[len(snakeParts) - 1][1]:
+                apples.remove(apple)
+                score += 1
+                print (score)
+
         if len(snakeParts) > 5:
             snakeParts.pop(0)
         totalDelta = 0
