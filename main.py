@@ -29,12 +29,15 @@ totalDelta = 0
 
 direction = 'right'
 
-speed = 0.2
+speed = 0.5
+maxSpeed = 0.1
+speedIncrement = 0.02
 
 maxLength = 5
 
 totalAppleDelta = 0
-appleThreshold = 3
+appleThreshold = 4
+maxNumberOfApples = 3
 
 score = 0
 
@@ -46,7 +49,7 @@ if (fileContents):
     bestScore = int(fileContents)
 
 def resetGame():
-    global snakeParts, apples, x, y, score, maxLength, lastTicks, totalDelta, direction, bestScore
+    global snakeParts, apples, x, y, score, maxLength, lastTicks, totalDelta, direction, bestScore, speed
     snakeParts = []
     apples = []
     score = 0
@@ -55,6 +58,7 @@ def resetGame():
     lastTicks = 0
     totalDelta = 0
     direction = 'right'
+    speed = 0.5
     f = open("snake.txt", "w")
     f.write(str(bestScore))
     f.close()
@@ -112,6 +116,8 @@ while 1:
         for apple in apples:
             if apple[0] == snakeParts[len(snakeParts) - 1][0] and apple[1] == snakeParts[len(snakeParts) - 1][1]:
                 apples.remove(apple)
+                if speed > maxSpeed:
+                    speed -= speedIncrement
                 score += 1
                 maxLength +=1
                 if score > bestScore:
@@ -121,7 +127,7 @@ while 1:
             snakeParts.pop(0)
         totalDelta = 0
 
-    if totalAppleDelta > appleThreshold:
+    if totalAppleDelta > appleThreshold and len(apples) <= maxNumberOfApples:
         apples.append((randrange(int((width- snakeSize) / snakeSize)) * snakeSize, headerHeight + (randrange(int((height - snakeSize)) / snakeSize) * snakeSize), snakeSize, snakeSize))
         totalAppleDelta = 0
         
