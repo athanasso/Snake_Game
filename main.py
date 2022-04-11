@@ -24,13 +24,13 @@ while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.ext()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT and direction !='right':
                 direction = 'left'
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT and direction !='left':
                 direction = 'right'
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and direction !='down':
                 direction = 'up'
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN and direction !='up':
                 direction = 'down'
 
     time = pygame.time.get_ticks()
