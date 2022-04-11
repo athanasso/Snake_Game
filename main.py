@@ -3,6 +3,8 @@ from random import randrange
 
 pygame.init()
 
+font = pygame.font.SysFont(None, 24)
+
 snakeSize = 15
 size = width, height = 640, 480
 black = 0, 0, 0
@@ -77,6 +79,9 @@ while 1:
         totalAppleDelta = 0
         
     screen.fill(black)
+
+    img = font.render('score: ' + str(score), True, white)
+    screen.blit(img, (20, 20))
 
     for snakePart in snakeParts:
         pygame.draw.rect(screen, white, snakePart)
