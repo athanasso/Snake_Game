@@ -38,6 +38,11 @@ score = 0
 
 bestScore = 0
 
+f = open("snake.txt", "r")
+fileContents = f.read()
+if (fileContents):
+    bestScore = int(fileContents)
+
 def resetGame():
     global snakeParts, apples, x, y, score, maxLength, lastTicks, totalDelta, direction, bestScore
     snakeParts = []
@@ -48,6 +53,9 @@ def resetGame():
     lastTicks = 0
     totalDelta = 0
     direction = 'right'
+    f = open("snake.txt", "w")
+    f.write(str(bestScore))
+    f.close()
 
 while 1:
     for event in pygame.event.get():
