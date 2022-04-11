@@ -5,11 +5,14 @@ pygame.init()
 
 font = pygame.font.SysFont(None, 24)
 
+headerHeight = 30
 snakeSize = 15
 size = width, height = 640, 480
 black = 0, 0, 0
 white = 255, 255, 255
 red = 255, 0, 0
+green = 0, 255, 0
+blue = 0, 0, 255
 
 screen = pygame.display.set_mode(size)
 
@@ -67,7 +70,6 @@ while 1:
             if apple[0] == snakeParts[len(snakeParts) - 1][0] and apple[1] == snakeParts[len(snakeParts) - 1][1]:
                 apples.remove(apple)
                 score += 1
-                print (score)
                 maxLength +=1
 
         if len(snakeParts) > maxLength:
@@ -75,16 +77,18 @@ while 1:
         totalDelta = 0
 
     if totalAppleDelta > appleThreshold:
-        apples.append((randrange(int((width- snakeSize) / snakeSize)) * snakeSize, randrange(int((height - snakeSize)) / snakeSize) * snakeSize, snakeSize, snakeSize))
+        apples.append((randrange(int((width- snakeSize) / snakeSize)) * snakeSize, headerHeight + (randrange(int((height - snakeSize)) / snakeSize) * snakeSize), snakeSize, snakeSize))
         totalAppleDelta = 0
         
     screen.fill(black)
 
+    pygame.draw.rect(screen, blue, (0, 0, 640, headerHeight))
+
     img = font.render('score: ' + str(score), True, white)
-    screen.blit(img, (20, 20))
+    screen.blit(img, (10, 8))
 
     for snakePart in snakeParts:
-        pygame.draw.rect(screen, white, snakePart)
+        pygame.draw.rect(screen, green, snakePart)
 
     for apple in apples:
         pygame.draw.rect(screen, red, apple)
