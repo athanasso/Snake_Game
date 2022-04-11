@@ -3,6 +3,7 @@ from random import randrange
 
 pygame.init()
 
+snakeSize = 15
 size = width, height = 640, 480
 black = 0, 0, 0
 white = 255, 255, 255
@@ -13,15 +14,15 @@ screen = pygame.display.set_mode(size)
 snakeParts = []
 apples = []
 
-x=100
-y=100
+x = 150
+y = 150
 lastTicks = 0
 
 totalDelta = 0
 
 direction = 'right'
 
-speed = 0.6
+speed = 0.2
 
 maxLength = 5
 
@@ -51,27 +52,28 @@ while 1:
 
     if totalDelta > speed:
         if direction == 'right':
-            x += 10
+            x += snakeSize
         if direction == 'left':
-            x -= 10
+            x -= snakeSize
         if direction == 'up':
-            y -= 10
+            y -= snakeSize
         if direction == 'down':
-            y += 10
+            y += snakeSize
 
-        snakeParts.append((x, y, 10, 10))
+        snakeParts.append((x, y, snakeSize, snakeSize))
         for apple in apples:
             if apple[0] == snakeParts[len(snakeParts) - 1][0] and apple[1] == snakeParts[len(snakeParts) - 1][1]:
                 apples.remove(apple)
                 score += 1
                 print (score)
+                maxLength +=1
 
-        if len(snakeParts) > 5:
+        if len(snakeParts) > maxLength:
             snakeParts.pop(0)
         totalDelta = 0
 
     if totalAppleDelta > appleThreshold:
-        apples.append((randrange(63) * 10, randrange(47) * 10, 10, 10))
+        apples.append((randrange(int((width- snakeSize) / snakeSize)) * snakeSize, randrange(int((height - snakeSize)) / snakeSize) * snakeSize, snakeSize, snakeSize))
         totalAppleDelta = 0
         
     screen.fill(black)
@@ -83,4 +85,3 @@ while 1:
         pygame.draw.rect(screen, red, apple)
 
     pygame.display.flip()
-
