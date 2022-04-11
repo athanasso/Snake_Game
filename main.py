@@ -13,6 +13,8 @@ white = 255, 255, 255
 red = 255, 0, 0
 green = 0, 255, 0
 blue = 0, 0, 255
+backgroundColour = 165, 204, 73
+foregroundColour = 85, 110, 27
 
 screen = pygame.display.set_mode(size)
 
@@ -123,20 +125,20 @@ while 1:
         apples.append((randrange(int((width- snakeSize) / snakeSize)) * snakeSize, headerHeight + (randrange(int((height - snakeSize)) / snakeSize) * snakeSize), snakeSize, snakeSize))
         totalAppleDelta = 0
         
-    screen.fill(black)
+    screen.fill(backgroundColour)
 
-    pygame.draw.rect(screen, blue, (0, 0, width, headerHeight))
+    pygame.draw.rect(screen, foregroundColour, (0, 0, width, headerHeight))
 
-    scoreImage = font.render('score: ' + str(score), True, white)
-    bestScoreImage = font.render('best score: ' + str(bestScore), True, white)
+    scoreImage = font.render('score: ' + str(score), True, backgroundColour)
+    bestScoreImage = font.render('best score: ' + str(bestScore), True, backgroundColour)
 
     screen.blit(scoreImage, (10, 8))
     screen.blit(bestScoreImage, (100, 8))
 
     for snakePart in snakeParts:
-        pygame.draw.rect(screen, green, snakePart)
+        pygame.draw.rect(screen, foregroundColour, snakePart)
 
     for apple in apples:
-        pygame.draw.rect(screen, red, apple)
+        pygame.draw.rect(screen, foregroundColour, apple)
 
     pygame.display.flip()
