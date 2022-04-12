@@ -251,5 +251,6 @@ while 1:
 
     for apple in apples:
         pygame.draw.rect(screen, red, apple)
+        #screen.blit(appleimg, apple)
 
     pygame.display.flip()
