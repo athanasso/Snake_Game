@@ -4,6 +4,12 @@ from random import randrange
 pygame.init()
 
 font = pygame.font.SysFont(None, 24)
+smallfont = pygame.font.SysFont("comicsansms", 25)
+medfont = pygame.font.SysFont("comicsansms", 50)
+largefont = pygame.font.SysFont("comicsansms", 70)
+
+img = pygame.image.load('Assets/Images/SnakeHead.png')
+appleimg = pygame.image.load("Assets/Images/apple.png")
 
 headerHeight = 30
 snakeSize = 15
@@ -48,10 +54,6 @@ fileContents = f.read()
 if (fileContents):
     bestScore = int(fileContents)
 
-smallfont = pygame.font.SysFont("comicsansms", 25)
-medfont = pygame.font.SysFont("comicsansms", 50)
-largefont = pygame.font.SysFont("comicsansms", 80)
-
 def gameIntro():
     intro = True
     while intro:
@@ -70,7 +72,7 @@ def gameIntro():
         messageToScreen("Welcome to Slither",
                           green,
                           -100,
-                          "medium")
+                          "large")
         messageToScreen("The objective of the game is to eat red apples",
                           black,
                           -30,
@@ -142,14 +144,14 @@ def resetGame():
     f.write(str(bestScore))
     f.close()
 
-backgroundMusic = pygame.mixer.Sound('Sounds/pokemon_route.mp3')
+backgroundMusic = pygame.mixer.Sound('Assets/Sounds/pokemon_route.mp3')
 backgroundMusic.set_volume(0.2)
 backgroundMusic.play(-1)
 
-eatSoundEffect = pygame.mixer.Sound('Sounds/eat.wav')
+eatSoundEffect = pygame.mixer.Sound('Assets/Sounds/eat.wav')
 eatSoundEffect.set_volume(4)
 
-crashSoundEffect = pygame.mixer.Sound('Sounds/crash.wav')
+crashSoundEffect = pygame.mixer.Sound('Assets/Sounds/crash.wav')
 crashSoundEffect.set_volume(4)
 
 gameIntro()
