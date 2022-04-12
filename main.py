@@ -23,6 +23,9 @@ backgroundColour = 165, 204, 73
 foregroundColour = 85, 110, 27
 
 screen = pygame.display.set_mode(size)
+pygame.display.set_caption('Slither')
+icon = pygame.image.load("Assets/Images/apple.png")
+pygame.display.set_icon(icon)
 
 snakeParts = []
 apples = []
