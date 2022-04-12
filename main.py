@@ -52,7 +52,44 @@ smallfont = pygame.font.SysFont("comicsansms", 25)
 medfont = pygame.font.SysFont("comicsansms", 50)
 largefont = pygame.font.SysFont("comicsansms", 80)
 
-def text_objects(text, color, size):
+def gameIntro():
+    intro = True
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    intro = False
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    quit()
+                    
+        screen.fill(backgroundColour)
+        messageToScreen("Welcome to Slither",
+                          green,
+                          -100,
+                          "medium")
+        messageToScreen("The objective of the game is to eat red apples",
+                          black,
+                          -30,
+                          "small")
+        messageToScreen("The more apples you eat, the longer you get",
+                          black,
+                          10,
+                          "small")
+        messageToScreen("If you run into yourself, or the edges, you die!",
+                          black,
+                          50,
+                          "small")
+        messageToScreen("Press Space to play, or ESC to quit.",
+                          black,
+                          180,
+                          "small")
+        pygame.display.update()
+
+def textObjects(text, color, size):
     if size == "small":
         textSurface = smallfont.render(text, True, color)
     elif size == "medium":
@@ -62,8 +99,8 @@ def text_objects(text, color, size):
         
     return textSurface, textSurface.get_rect()
 
-def message_to_screen(msg, color, y_displace=0, size = "small"):
-    textSurf,textRect = text_objects(msg,color, size)
+def messageToScreen(msg, color, y_displace=0, size = "small"):
+    textSurf,textRect = textObjects(msg,color, size)
     textRect.center = (width/2), (height/2)+y_displace
     screen.blit(textSurf, textRect)
 
@@ -75,6 +112,7 @@ def pause():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
             if event.type == pygame.KEYDOWN:    
                 if event.key == pygame.K_SPACE:
                     paused = False
@@ -83,9 +121,10 @@ def pause():
                 elif event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     quit()
+
         screen.fill(backgroundColour)
-        message_to_screen("Game Over!", black, -100, size="large")
-        message_to_screen("Press space to continue or ESC to Quit", black, 25)
+        messageToScreen("Game Over!", black, -100, size="large")
+        messageToScreen("Press space to continue or ESC to Quit", black, 25)
         pygame.display.update()
 
 def resetGame():
@@ -112,6 +151,8 @@ eatSoundEffect.set_volume(4)
 
 crashSoundEffect = pygame.mixer.Sound('Sounds/crash.wav')
 crashSoundEffect.set_volume(4)
+
+gameIntro()
 
 while 1:
     for event in pygame.event.get():
@@ -204,6 +245,6 @@ while 1:
         pygame.draw.rect(screen, foregroundColour, snakePart)
 
     for apple in apples:
-        pygame.draw.rect(screen, foregroundColour, apple)
+        pygame.draw.rect(screen, red, apple)
 
     pygame.display.flip()
