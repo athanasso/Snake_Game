@@ -99,9 +99,9 @@ def textObjects(text, color, size):
         
     return textSurface, textSurface.get_rect()
 
-def messageToScreen(msg, color, y_displace=0, size = "small"):
+def messageToScreen(msg, color, yDisplace=0, size = "small"):
     textSurf,textRect = textObjects(msg,color, size)
-    textRect.center = (width/2), (height/2)+y_displace
+    textRect.center = (width/2), (height/2)+yDisplace
     screen.blit(textSurf, textRect)
 
 def pause():
