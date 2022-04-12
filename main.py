@@ -84,7 +84,7 @@ def gameIntro():
                           black,
                           10,
                           "small")
-        messageToScreen("If you run into yourself, or the edges, you die!",
+        messageToScreen("If you run into yourself, or the edges, you lose!",
                           black,
                           50,
                           "small")
