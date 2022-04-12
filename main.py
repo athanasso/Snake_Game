@@ -48,6 +48,19 @@ fileContents = f.read()
 if (fileContents):
     bestScore = int(fileContents)
 
+def pause():
+    paused = True
+    while paused:
+        backgroundMusic.stop()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:    
+                if event.key == pygame.K_SPACE:
+                    paused = False
+                    backgroundMusic.play(-1)
+
 def resetGame():
     global snakeParts, apples, x, y, score, maxLength, lastTicks, totalDelta, direction, bestScore, speed
     snakeParts = []
@@ -112,6 +125,7 @@ while 1:
         if currentY < headerHeight or currentY >= height or currentX < 0 or currentX > width:
             resetGame()
             crashSoundEffect.play()
+            pause()
             print("You're dead from wall!")
 
         # Check for collision with yourself
@@ -123,6 +137,7 @@ while 1:
                 if snakePart[0] == currentX and snakePart[1] == currentY:
                     resetGame()
                     crashSoundEffect.play()
+                    pause()
                     print ("You are dead from yourself!")
 
         for apple in apples:
